@@ -30,7 +30,7 @@ Article list
                 </a>
             </td>
             <td>
-                {{ articles[a]['text'] | truncate(40) }}
+                {{ articles[a]['text'][:30] }}
             </td>
         </tr>
         {% endfor %}
