@@ -17,10 +17,11 @@ user = Blueprint('user', __name__,url_prefix='/users',static_folder='../static')
 #     }
 
 @user.route('/')
+@login_required
 def user_list():
     from blog.models import User
     users = User.query.all()
-    key_list = ['id', 'title', 'text', 'a_user_id', ]
+    key_list = ['id', 'username', 'email', ]
     return render_template(
         'users/list.html',
         users=users,
@@ -29,10 +30,11 @@ def user_list():
 
 
 @user.route('/<int:pk>')
+@login_required
 def get_user(pk: int):
     from blog.models import User
     _user = User.query.filter_by(id=pk).one_or_none()
-    key_list = ['id', 'title', 'text', 'a_user_id', ]
+    key_list = ['id', 'username', 'email', ]
     if not _user:
         raise NotFound(f'user id {pk} not found')      # change error message
         return redirect('/users/')                       # or make action  (redirect) on error

@@ -1,9 +1,14 @@
 from flask import Blueprint, render_template, redirect
-from blog.user.views import USERS
+from flask_login import login_required
 from werkzeug.exceptions import NotFound
+
+from blog.models import User, Article
+
 
 
 article = Blueprint('article', __name__, url_prefix='/articles',static_folder='../static')
+
+key_list = ['id', 'title', 'text', 'a_user_id', ]
 
 # ARTICLES = {
 #     1: {'title': '1_Notes to Congress', 'author': 2, 'text':'1_Here is a long text with notes to Congress'},
@@ -16,30 +21,30 @@ article = Blueprint('article', __name__, url_prefix='/articles',static_folder='.
 
 
 @article.route('/')
+@login_required
 def article_list():
-    for item in ARTICLES:
-        key_list=list(ARTICLES[item])
+    articles = Article.query.all()
+    users = User.query.all()
     return render_template(
         'articles/list.html',
-        articles=ARTICLES,
-        key_list=key_list,
-        users=USERS
+        articles=articles,
+        users=users
     )
 
 @article.route('/<int:pk>')
+@login_required
 def get_article(pk: int):
-    try:
-        the_article = ARTICLES[pk]
-    except KeyError:
-        # raise NotFound(f'user id {pk} not found')      # change error message
-        return redirect('/articles/')                       # or make action  (redirect) on error
-    key_list = list(the_article)
+    the_article = Article.query.filter_by(id=pk).one_or_none()
+    # users = User.query.all()
+    if not the_article:
+        raise NotFound(f"Article #{pk} doesn't exist!")
+    author = User.query.filter_by(id=the_article.id).one_or_none()
     return render_template(
         'articles/details.html',
         article=the_article,
         key_list=key_list,
         id=pk,
-        users=USERS,
+        author=author,
     )
 
 

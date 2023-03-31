@@ -10,7 +10,7 @@ auth = Blueprint('auth', __name__, static_folder='../static')
 @auth.route('/login', methods=('GET',))
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('user.profile', pk=current_user.id))
+        return redirect(url_for('user.user_list'))
 
     return render_template(
         'auth/login.html',
@@ -19,17 +19,17 @@ def login():
 
 @auth.route('/login', methods=('POST',))
 def login_post():
-    email = request.form.get('email')
+    username = request.form.get('username')
     password = request.form.get('password')
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
 
     if not user or not check_password_hash(user.password, password):
         flash('Check your login details')
         return redirect(url_for('.login'))
 
     login_user(user)
-    return redirect(url_for('user.profile', pk=user.id))
+    return redirect(url_for('user.user_list'))
 
 
 @auth.route('/logout')
