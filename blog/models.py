@@ -9,7 +9,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(255), unique=True)
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
-    u_articles = db.relationship("Article", back_populates="a_user" )          # creates list user.article
+    u_articles = db.relationship("Article", back_populates="a_user")          # creates list user.article
 
 
 class Article(db.Model):
@@ -19,5 +19,4 @@ class Article(db.Model):
     text = db.Column(db.String)
     a_user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     a_user = db.relationship('User', back_populates="u_articles")           # creates list article.user
-
 
