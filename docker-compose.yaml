@@ -12,6 +12,10 @@ services:
       - ./blog:/app/blog
     ports:
       - 8080:5000
+    command: bash -c "
+      ./wait-for-postgres.sh db
+      && flask init-db
+      "
     depends_on:
       - database
 
