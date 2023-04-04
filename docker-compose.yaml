@@ -7,6 +7,9 @@ services:
       context: .
     environment:
       DATABASE_URI: postgresql://user:password@database:5432/blog
+      CONFIG_NAME: DevConfig
+    volumes:
+      - ./blog:/app/blog
     ports:
       - 8080:5000
     depends_on:
@@ -19,6 +22,7 @@ services:
       POSTGRES_DB: blog
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:

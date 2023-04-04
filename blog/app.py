@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from flask import Flask
 
 from blog import commands
@@ -12,7 +13,8 @@ from blog.models import User, Article
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.config.from_object('blog.config')
+    cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
+    app.config.from_object(f"blog.configs.{cfg_name}")
     # all these below moved to blog/config.py
     # app.config['SECRET_KEY'] = 'z#if^%-_2j9o9*tjxn(^c3k(#q_gonx^nyf6m7_=$x@y&kqw2r'
     # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
