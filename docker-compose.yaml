@@ -13,7 +13,7 @@ services:
     ports:
       - 8080:5000
     command: bash -c "
-      ./wait-for-postgres.sh db
+      ./wait-for-postgres.sh database
       && flask init-db
       "
     depends_on:
