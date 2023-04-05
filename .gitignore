@@ -125,6 +125,7 @@ __pypackages__/
 celerybeat-schedule
 celerybeat.pid
 
+pgdata_dev
 pgdata_dev/
 
 # SageMath parsed files

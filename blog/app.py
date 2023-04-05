@@ -6,10 +6,6 @@ from blog import commands
 from blog.extensions import db, login_manager, migrate
 from blog.models import User, Article
 
-# from blog.user.views import user
-# from blog.article.views import article
-# from blog.auth.views import auth
-
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -46,6 +42,7 @@ def register_blueprint(app: Flask):
     app.register_blueprint(user)
     app.register_blueprint(article)
     app.register_blueprint(auth)
+
 
 def register_commands(app: Flask):
     app.cli.add_command(commands.init_db)
