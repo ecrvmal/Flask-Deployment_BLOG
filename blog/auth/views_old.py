@@ -7,7 +7,7 @@ from blog.models import User
 auth = Blueprint('auth', __name__, static_folder='../static')
 
 
-@auth.route('/login', methods=('GET','POST'))
+@auth.route('/login', methods=('GET',))
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('user.user_list'))
