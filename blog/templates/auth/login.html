@@ -19,7 +19,7 @@ Login page
 
         <form method="POST">
 
-            {{ form.csrf_token }}
+            {% form.csrf_token %}
             {% for field in ['username','password'] %}
             {{ render_field(form[field]) }}
             {% endfor %}

@@ -13,7 +13,10 @@ auth = Blueprint('auth', __name__, static_folder='../static')
 @auth.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'GET':
-        return render_template('auth/login.html')
+        if current_user.is_authenticated:
+            return redirect(url_for('user.profile', pk=current_user.id))
+        else:
+            return render_template('auth/login.html')
 
     errors = []
     form = UserLoginForm(request.form)
@@ -29,8 +32,11 @@ def login():
             return redirect(url_for('forms.login'))
 
         login_user(user)
-        return redirect(url_for('user.user_list'))
-    return redirect(url_for('auth.login'))
+    return render_template(
+        'auth/login.html',
+        form=form,
+        errors=errors,
+    )
 
 
 @auth.route('/register', methods=('GET', 'POST'))
