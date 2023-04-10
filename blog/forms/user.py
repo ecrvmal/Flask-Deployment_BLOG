@@ -3,8 +3,8 @@ from flask_wtf import FlaskForm
 
 
 class UserLoginForm(FlaskForm):
-    username = StringField('Username', [validators.DataRequired(),])
-    password = StringField('Password', [validators.DataRequired(),])
+    username = StringField('Username', [validators.DataRequired()])
+    password = StringField('Password', [validators.DataRequired()])
     submit = SubmitField('Login')
 
 

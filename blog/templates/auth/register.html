@@ -18,7 +18,7 @@ User register
 
 
 <form method="POST">
-    {{form.csrf_token }}
+    {{ form.csrf_token }}
         {% for field in ['username','email','birth_year','password','confirm_password'] %}
             {{ render_field(form[field]) }}
         {% endfor %}

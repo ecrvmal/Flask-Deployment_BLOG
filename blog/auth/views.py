@@ -1,6 +1,8 @@
+from sqlite3 import IntegrityError
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import logout_user, login_user, login_required, current_user
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from blog.models import User
 from blog.extensions import db
@@ -9,26 +11,36 @@ from blog.forms.user import UserRegisterForm
 
 auth = Blueprint('auth', __name__, static_folder='../static')
 
+@auth.route('/')
+def hello():
+    return redirect(url_for('auth.login'))
+
 
 @auth.route('/login', methods=('GET', 'POST'))
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('user.profile', pk=current_user.id))
+        return redirect(url_for('user.get_user', pk=current_user.id))
+        # return redirect(url_for('user.user_list'))
 
     errors = []
     form = UserLoginForm(request.form)
 
     if request.method == 'POST' and form.validate_on_submit():
         username = form.username.data
-        password = form.username.data
+        password = form.password.data
 
         user = User.query.filter_by(username=username).first()
 
         if not user or not check_password_hash(user.password, password):
+            form.password.errors.append("Please check username and password")
             flash('Check your login details')
-            return redirect(url_for('forms.login'))
+            # return redirect(url_for('auth.login'))
+            return render_template('auth/login.html', form=form)
+
+
 
         login_user(user)
+        return redirect(url_for('user.user_list'))
     return render_template(
         'auth/login.html',
         form=form,
@@ -55,11 +67,10 @@ def register():
 
         _user = User(
             username=form.username.data,
-            first_name=form.first_name.data,
-            last_name=form.last_name.data,
             email=form.email.data,
             birth_year=form.birth_year.data,
-            password=generate_password_hash(form.password.data),
+            is_staff=False,
+            password=generate_password_hash(form.password.data)
         )
 
         db.session.add(_user)
