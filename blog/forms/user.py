@@ -18,7 +18,7 @@ class UserRegisterForm(FlaskForm):
         validators.DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      [validators.DataRequired(),
-                                      validators.EqualTo('confirm_password',
+                                      validators.EqualTo('password',
                                                          message='Field must be equal to password')])
     submit = SubmitField('Register')
 

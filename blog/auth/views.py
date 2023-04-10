@@ -78,6 +78,7 @@ def register():
             errors.append("Database Commit Error")
         else:
             login_user(_user)
+        return redirect(url_for('user.user_list'))
 
     return render_template(
         'auth/register.html',
