@@ -37,8 +37,6 @@ def login():
             # return redirect(url_for('auth.login'))
             return render_template('auth/login.html', form=form)
 
-
-
         login_user(user)
         return redirect(url_for('user.user_list'))
     return render_template(
@@ -51,7 +49,7 @@ def login():
 @auth.route('/register', methods=('GET', 'POST'))
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('user.profile', pk=current_user.id))
+        return redirect(url_for('user.get_user', pk=current_user.id))
 
     errors = []
     form = UserRegisterForm(request.form)  # request.form - If there is a value for key,
