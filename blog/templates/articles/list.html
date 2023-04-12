@@ -27,7 +27,7 @@ Article list
             </td>
             <td>
                 <a href="{{ url_for('article.article_details', pk=article.id ) }}">
-                    {{ article.title }}
+                    {{ article.author.user.username }}
                 </a>
             </td>
             <td>

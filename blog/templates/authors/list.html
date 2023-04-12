@@ -10,7 +10,7 @@ Authors list
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">Author ID</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
         </tr>
@@ -20,9 +20,7 @@ Authors list
         <tr>
             <th scope="row">{{ author.id }}</th>
             <td>
-                <a href="{{ url_for('author.user.username', pk=author.id ) }}">
-                    {{ author.user.username }}
-                </a>
+                 <a href="{{ url_for('user.user_details', pk=author.user_id ) }}"> {{ author.user.username }} </a>
             </td>
             <td>
                 {{ author.user.email }}

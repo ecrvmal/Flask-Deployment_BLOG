@@ -18,14 +18,15 @@ def hello():
 
 @auth.route('/login', methods=('GET', 'POST'))
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('user.get_user', pk=current_user.id))
-        # return redirect(url_for('user.user_list'))
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            return redirect(url_for('user.user_details', pk=current_user.id))
+            # return redirect(url_for('user.user_list'))
 
     errors = []
     form = UserLoginForm(request.form)
-
     if request.method == 'POST' and form.validate_on_submit():
+
         username = form.username.data
         password = form.password.data
 
@@ -66,7 +67,7 @@ def register():
         _user = User(
             username=form.username.data,
             email=form.email.data,
-            birth_year=form.birth_year.data,
+            # birth_year=form.birth_year.data,
             is_staff=False,
             password=generate_password_hash(form.password.data)
         )
