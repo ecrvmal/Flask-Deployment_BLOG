@@ -1,14 +1,16 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, request
 from flask_login import login_required
 from werkzeug.exceptions import NotFound
 
 from blog.models import User, Article
 
+from blog.forms.article import CreateArticleForm
+
 
 
 article = Blueprint('article', __name__, url_prefix='/articles',static_folder='../static')
 
-key_list = ['id', 'title', 'text', 'a_user_id', ]
+# key_list = ['id', 'title', 'text', 'a_user_id', ]
 
 # ARTICLES = {
 #     1: {'title': '1_Notes to Congress', 'author': 2, 'text':'1_Here is a long text with notes to Congress'},
@@ -33,7 +35,7 @@ def article_list():
 
 @article.route('/<int:pk>')
 @login_required
-def get_article(pk: int):
+def article_details(pk: int):
     the_article = Article.query.filter_by(id=pk).one_or_none()
     # users = User.query.all()
     if not the_article:
@@ -45,6 +47,25 @@ def get_article(pk: int):
         key_list=key_list,
         id=pk,
         author=author,
+    )
+
+@article.route('/create', methods=['GET',"POST"])
+@login_required
+def create_article():
+    if request.method == 'GET':
+        form = CreateArticleForm(request.form)
+        return render_template(articles/create.html, form=form)
+
+
+    if request.method == 'POST':
+        form = CreateArticleForm(request.form)
+
+
+
+    return render_template(
+        'articles/list.html',
+        articles=articles,
+        users=users
     )
 
 

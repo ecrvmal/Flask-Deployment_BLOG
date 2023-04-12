@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Authors list
+{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for author in authors %}
+        <tr>
+            <th scope="row">{{ author.id }}</th>
+            <td>
+                <a href="{{ url_for('author.user.username', pk=author.id ) }}">
+                    {{ author.user.username }}
+                </a>
+            </td>
+            <td>
+                {{ author.user.email }}
+            </td>
+
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
