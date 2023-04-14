@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Article fetails
+Article list
 {% endblock %}
 
 {% block body %}
 <div class="container">
-
+<h2> articles for tag {{ tag_name }}</h2>
     <table class="table">
         <thead>
         <tr>
@@ -14,43 +14,36 @@ Article fetails
             <th scope="col">{{ 'Title' }}</th>
             <th scope="col">{{ 'Author' }}</th>
             <th scope="col">{{ 'Text' }}</th>
+            <th scope="col">{{ 'Tags' }}</th>
         </tr>
         </thead>
         <tbody>
+        {% for article in articles %}
+
         <tr>
             <th scope="row">{{ article.id }}</th>
+
             <td>
-                {{ article.title }}
+                <a href="{{ url_for('article.article_details', pk=article.id ) }}"> {{ article.title }} </a>
             </td>
             <td>
-                <a href="{{ url_for('user.user_details', pk=article.author.user.id ) }}">
+                <a href="{{ url_for('user.user_details', pk=article.author.user_id ) }}">
                     {{ article.author.user.username }}
                 </a>
-
-                {# article.author.user.username #}
             </td>
             <td>
                 {{ article.text[:30] }}
             </td>
+            <td>
+                {% for tag in article.tags %}
+                {{ tag.id }} {{ ", " }}
+                {% endfor %}
+            </td>
         </tr>
+        {% endfor %}
         </tbody>
     </table>
-    <div class="border border-primary rounded"
-         style="max-width: 600px; height: 200px; margin-top: 50px;">
-        <div style="padding: 10px;">
-            <h3 style="margin: 3px;">
-                The Text of Article :
-            </h3>
-            <p class="lead">
-                {{ article.text }}
-            </p>
-        </div>
-    </div>
-    <div class="col-6">
-        {% for tag in article.tags %}
-        <span class="badge bg-primary">{{ tag.name }} </span>
-        {% endfor %}
-    </div>
+
 
 </div>
 

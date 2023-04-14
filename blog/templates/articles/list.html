@@ -14,6 +14,7 @@ Article list
             <th scope="col">{{ 'Title' }}</th>
             <th scope="col">{{ 'Author' }}</th>
             <th scope="col">{{ 'Text' }}</th>
+            <th scope="col">{{ 'Tags' }}</th>
         </tr>
         </thead>
         <tbody>
@@ -32,6 +33,11 @@ Article list
             </td>
             <td>
                 {{ article.text[:30] }}
+            </td>
+            <td>
+                {% for tag in article.tags %}
+                {{ tag.id }} {{ ", " }}
+                {% endfor %}
             </td>
         </tr>
         {% endfor %}
