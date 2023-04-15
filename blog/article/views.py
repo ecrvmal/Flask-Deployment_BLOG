@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for
 from flask_login import login_required, current_user
+from sqlalchemy.orm import joinedload
 from werkzeug.exceptions import NotFound
 
 from blog.models import User, Article, Author, Tag
@@ -86,19 +87,15 @@ def create_article():
 @article.route('/tag/<int:pk>')
 @login_required
 def article_tag_details(pk: int):
-    tag_name = Tag.query.filter_by(id=pk).one_or_none()
-    # article_set = Article.query.filter(Article.tags(id=pk)).all()
-    # article_set = Article.query.join(Article.tags).filter_by(Article.tags(id=pk)).all()
-    # article_set = Article.query.join(Article.tags).filter_by(Article.tags(id=pk)).all()
-    # article_set = Article.query.join(Tag).filter_by(Article.tags(id=pk)).all()
-    # article_set = Article.query.join(Tag).filter_by(Tag(id=pk)).all()
-    # article_set = Article.query.join(Tags(Article.tags).filter(Tag.id=pk)).all()
+    selected_tag = Tag.query.filter_by(id=pk).one_or_none()
+
+    article_set = Article.query.options(joinedload(Article.tags)).filter(Article.tags.any(Tag.id == pk))
     if not article_set:
         raise NotFound(f"Article with tag #{pk} doesn't exist!")
     return render_template(
         'articles/article_set.html',
         article_set=article_set,
-        tag_name=tag_name,
+        selected_tag=selected_tag,
     )
 
 

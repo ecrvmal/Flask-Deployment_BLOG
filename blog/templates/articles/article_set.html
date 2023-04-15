@@ -6,7 +6,7 @@ Article list
 
 {% block body %}
 <div class="container">
-<h2> articles for tag {{ tag_name }}</h2>
+<h2> articles for tag #{{selected_tag.id }} named '{{ selected_tag.name }}'</h2>
     <table class="table">
         <thead>
         <tr>
@@ -18,7 +18,7 @@ Article list
         </tr>
         </thead>
         <tbody>
-        {% for article in articles %}
+        {% for article in article_set %}
 
         <tr>
             <th scope="row">{{ article.id }}</th>
@@ -36,7 +36,7 @@ Article list
             </td>
             <td>
                 {% for tag in article.tags %}
-                {{ tag.id }} {{ ", " }}
+                {{ tag.name }} ({{tag.id}}),
                 {% endfor %}
             </td>
         </tr>
