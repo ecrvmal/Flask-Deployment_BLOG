@@ -23,15 +23,18 @@ class DevConfig(BaseConfig):
     # SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     # SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
     SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite'
+    FLASK_ADMIN_SWATCH = 'cosmo'
 
 
 class TestConfig(BaseConfig):
     TESTING = True
+    FLASK_ADMIN_SWATCH = 'cosmo'
 
 class ProductionConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = "postgresql://user:password@database:5432/blog"
     DEBUG = False
     TESTING = False
+    FLASK_ADMIN_SWATCH = 'cosmo'
 
 
 
