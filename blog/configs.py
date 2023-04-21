@@ -26,7 +26,6 @@ class DevConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite'
 
 
-
 class TestConfig(BaseConfig):
     TESTING = True
 

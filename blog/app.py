@@ -24,7 +24,10 @@ def create_app() -> Flask:
 
 def register_extensions(app):
     db.init_app(app)
-    migrate.init_app(app, db, compare_type=True, render_as_batch=True)
+    migrate.init_app(app, db,
+                     compare_type=True,
+                     # render_as_batch=True
+                     )
     csrf.init_app(app)
 
     login_manager.login_view = 'auth.login'
