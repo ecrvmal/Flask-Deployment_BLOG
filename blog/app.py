@@ -6,6 +6,7 @@ from blog import commands
 from blog.extensions import db, login_manager, migrate, csrf
 from blog.models import User, Article
 from blog.admin import admin
+from blog.api import init_api
 
 
 def create_app() -> Flask:
@@ -29,6 +30,8 @@ def register_extensions(app):
                      # render_as_batch=True
                      )
     csrf.init_app(app)
+
+    api = init_api(app)
 
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)

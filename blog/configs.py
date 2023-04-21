@@ -17,6 +17,9 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = 'z#if^%-_2j9o9*tjxn(^c3k(#q_gonx^nyf6m7_=$x@y&kqw2r'
     FLASK_ADMIN_SWATCH = "cerulean"
+    OPENAPI_URL_PREFIX = '/api/docs'
+    OPENAPI_SWAGGER_UI_PATH = '/'
+    OPENAPI_SWAGGER_UI_VERSION = '3.22.0'
 
 
 class DevConfig(BaseConfig):
