@@ -1,7 +1,14 @@
-from flask import Blueprint, render_template, redirect, request, url_for
+
+import codecs
+import urllib.request
+import json
+
+import requests
+from flask import Blueprint, render_template, redirect, request, url_for, json
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from werkzeug.exceptions import NotFound
+
 
 from blog.models import User, Article, Author, Tag
 from blog.extensions import db
@@ -96,6 +103,22 @@ def article_tag_details(pk: int):
         'articles/article_set.html',
         article_set=article_set,
         selected_tag=selected_tag,
+    )
+
+
+@article.route('/api')
+# @login_required
+def article_api_list():
+
+    article_set = requests.get('http://127.0.0.1:5000/api/articles/event_get_list')
+    if not article_set:
+        raise NotFound(f"Article list is empty!")
+    article_dict = json.loads(article_set.content)
+    article_data = article_dict["list"]["data"]
+    return render_template(
+        'articles/article_api.html',
+        article_list=article_data,
+
     )
 
 
