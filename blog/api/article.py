@@ -3,6 +3,8 @@ import json
 from combojsonapi.event.resource import EventsResource
 from flask import request, jsonify
 from flask_combo_jsonapi import ResourceDetail, ResourceList
+
+from blog.configs import API_URL
 from blog.schemas import ArticleSchema
 from blog.extensions import db
 from blog.models import Article
