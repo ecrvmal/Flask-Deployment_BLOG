@@ -112,16 +112,15 @@ def article_api_list():
     # article_set = requests.get('http://127.0.0.1:5000/api/articles/event_get_list')
     # article_set = requests.get(f'{API_URL}/api/articles/event_get_list')
     # article_set = requests.get('https://flask-api-deployment-cr01.onrender.com/api/articles')
-    article_set = requests.get(f'{API_URL}/api/articles')
+    article_set = requests.get('http://127.0.0.1:5000/api/articles')
     if not article_set:
         raise NotFound(f"Article list is empty!")
     article_dict = json.loads(article_set.content)
     # article_data = article_dict["list"]["data"]
     article_data = article_dict["data"]
     return render_template(
-        'articles/article_set.html',
+        'articles/article_api.html',
         article_list=article_data,
-        selected_tag = "2",
     )
 
 
