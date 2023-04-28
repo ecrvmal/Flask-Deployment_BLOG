@@ -14,11 +14,12 @@ class ArticleListEvent(EventsResource):
 
     def event_get_list(self, *args, **kwargs):
         # return{'list': requests.get('https://flask-api-deployment-cr01.onrender.com/api/articles').json()}
+        return{'list': requests.get(f'{API_URL}/api/articles').json()}
         # return{'list': requests.get('http://127.0.0.1:5000/api/articles').json()}  # this works
         # return{'list': Article.query.all()}                              # this don't works
         # return{'list': Article.query.all().json()}                       # this don't works
-        article_set = json.dumps(Article.query.all())
-        return{'list': article_set}
+        # article_set = json.dumps(Article.query.all())
+        # return{'list': article_set}
 
 
     def event_post_count(self):
