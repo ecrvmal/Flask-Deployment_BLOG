@@ -15,7 +15,7 @@ from blog.extensions import db
 from blog.forms.article import CreateArticleForm
 
 
-article = Blueprint('article', __name__, url_prefix='/articles',static_folder='../static')
+article = Blueprint('article', __name__, url_prefix='/articles', static_folder='../static')
 
 # key_list = ['id', 'title', 'text', 'a_user_id', ]
 
@@ -112,7 +112,9 @@ def article_api_list():
     # article_set = requests.get('http://127.0.0.1:5000/api/articles/event_get_list')
     # article_set = requests.get(f'{API_URL}/api/articles/event_get_list')
     # article_set = requests.get('https://flask-api-deployment-cr01.onrender.com/api/articles')
-    article_set = requests.get('http://127.0.0.1:5000/api/articles')
+    url_address='https://flask-api-deployment-cr01.onrender.com/api/articles/?include=author%2Ctags&page%5Bnumber%5D' \
+                '=1&page%5Bsize%5D=10'
+    article_set = requests.get(url_address)
     if not article_set:
         raise NotFound(f"Article list is empty!")
     article_dict = json.loads(article_set.content)
