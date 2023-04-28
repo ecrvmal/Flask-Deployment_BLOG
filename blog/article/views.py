@@ -119,8 +119,9 @@ def article_api_list():
     # article_data = article_dict["list"]["data"]
     article_data = article_dict["data"]
     return render_template(
-        'articles/article_api.html',
+        'articles/article_set.html',
         article_list=article_data,
+        selected_tag = "2",
     )
 
 
