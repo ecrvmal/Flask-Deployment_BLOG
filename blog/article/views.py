@@ -117,7 +117,8 @@ def article_api_list():
     if not article_set:
         raise NotFound(f"Article list is empty!")
     article_dict = json.loads(article_set.content)
-    article_data = article_dict["list"]["data"]
+    # article_data = article_dict["list"]["data"]
+    article_data = article_dict["data"]
     return render_template(
         'articles/article_api.html',
         article_list=article_data,
