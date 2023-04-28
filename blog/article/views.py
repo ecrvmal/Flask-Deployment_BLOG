@@ -122,7 +122,6 @@ def article_api_list():
     return render_template(
         'articles/article_api.html',
         article_list=article_data,
-
     )
 
 
