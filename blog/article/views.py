@@ -109,7 +109,6 @@ def article_tag_details(pk: int):
 @article.route('/api')
 # @login_required
 def article_api_list():
-
     # article_set = requests.get('http://127.0.0.1:5000/api/articles/event_get_list')
     # article_set = requests.get(f'{API_URL}/api/articles/event_get_list')
     # article_set = requests.get('https://flask-api-deployment-cr01.onrender.com/api/articles')
