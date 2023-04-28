@@ -110,7 +110,8 @@ def article_tag_details(pk: int):
 # @login_required
 def article_api_list():
 
-    article_set = requests.get('http://127.0.0.1:5000/api/articles/event_get_list')
+    # article_set = requests.get('http://127.0.0.1:5000/api/articles/event_get_list')
+    article_set = requests.get(f'{API_URL}/api/articles/event_get_list')
     if not article_set:
         raise NotFound(f"Article list is empty!")
     article_dict = json.loads(article_set.content)
