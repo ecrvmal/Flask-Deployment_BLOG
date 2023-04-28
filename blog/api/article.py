@@ -1,6 +1,6 @@
 import requests
 from combojsonapi.event.resource import EventsResource
-from flask import request
+from flask import request, jsonify
 from flask_combo_jsonapi import ResourceDetail, ResourceList
 from blog.schemas import ArticleSchema
 from blog.extensions import db
@@ -12,7 +12,9 @@ class ArticleListEvent(EventsResource):
         return{'count': Article.query.count()}
 
     def event_get_list(self, *args, **kwargs):
-        return{'list': requests.get('http://127.0.0.1:5000/api/articles').json()}
+        return{'list': requests.get('https://flask-api-deployment-cr01.onrender.com/api/articles').json()}
+        # return{'list': requests.get('http://127.0.0.1:5000/api/articles').json()}  # this works
+        # return{'list': Article.query.all()}                                        # this don't works
 
 
     def event_post_count(self):
