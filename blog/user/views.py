@@ -19,6 +19,11 @@ user = Blueprint('user', __name__,url_prefix='/users',static_folder='../static')
 @user.route('/')
 @login_required
 def user_list():
+    """
+    The user_list function renders a template that displays all users.
+
+    :return: A rendered template
+    """
     from blog.models import User
     users = User.query.all()
     key_list = ['id', 'username', 'email', ]
@@ -32,6 +37,14 @@ def user_list():
 @user.route('/<int:pk>')
 @login_required
 def user_details(pk: int):
+
+    """
+    The user_details function accepts a primary key (pk) and returns the details of the user with that pk.
+    If no user is found, it redirects to /users/.
+
+    :param pk: int: Specify the type of parameter that is expected
+    :return: A template with the user details
+    """
     from blog.models import User
     _user = User.query.filter_by(id=pk).one_or_none()
     key_list = ['id', 'username', 'email', ]

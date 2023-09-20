@@ -9,11 +9,19 @@ The project can be implemented either as python application or as a set of conta
   - requests
   - sqlalchemy
   - json
+  - swagger
   - docker
   - docker-compose
 
 ### User Authorisation
 Authorisation implemented on login - password pair (Example user1: 123)
+
+### API Documentation
+API documentation is implemented with swagger package.
+API documentation is available at live demo via link: 
+```shell
+/api/docs
+```
 
 ### Live Demo 
 Live Demo of the project is available by your request to 
